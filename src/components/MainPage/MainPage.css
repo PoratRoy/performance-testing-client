@@ -1,0 +1,52 @@
+.main-contianer {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    gap: 5vh;
+	justify-content: space-evenly;
+	color: var(--text-color);
+    margin: 5vh 0;
+}
+
+.main-btns {
+	position: relative;
+	display: flex;
+	width: 50%;
+	max-width: 500px;
+    gap: 50px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.main-btn {
+	background-color: var(--btn-color);
+	width: 100%;
+	color: var(--text-color);
+    border: none;
+	font-size: 18px;
+	border-radius: 6px;
+    padding: 15px 25px;
+}
+
+.main-btn:hover {
+	cursor: pointer;
+	background-color: var(--btn-color-hover);
+}
+.main-btn:active {
+	cursor: pointer;
+	background-color: var(--btn-color-active);
+}
+
+.main-charts {
+	display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+}

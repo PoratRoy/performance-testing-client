@@ -1,0 +1,22 @@
+.chart-contianer{
+    position: relative;
+    background-color: var(--background-box-color);
+    padding: 20px;
+    min-width: 600px;
+    width: 700px;
+    max-width: 60vw;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: var(--text-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.chart-chart{
+    position: relative;
+    width: 100%;
+}
