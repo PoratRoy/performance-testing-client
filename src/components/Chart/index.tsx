@@ -8,10 +8,12 @@ import { Line } from 'react-chartjs-2';
 
 interface ChartProps {
 	resTimeData?: responseTime;
+	websitesFromStorage?: responseTime[][];
+	index?: number;
 }
 
 const Chart: React.FC<ChartProps> = (props) => {
-	const { resTimeData } = props;
+	const { resTimeData, websitesFromStorage, index = 0 } = props;
 
 	const [ dataChart, setDataChart ] = useState<chartData>(initDataChart);
 
@@ -28,7 +30,6 @@ const Chart: React.FC<ChartProps> = (props) => {
 	useEffect(
 		() => {
 			if (resTimeData && resTimeData.time !== 0) {
-				console.log('3', resTimeData)
 				const { time, responseTime } = resTimeData;
 				if (data.length === 0) {
 					setData([ responseTime ]);
@@ -47,15 +48,30 @@ const Chart: React.FC<ChartProps> = (props) => {
 		[ resTimeData ]
 	);
 
-	useEffect(()=>{
-		if(data && data.length !== 0 && label && label.length !== 0){
-			const initChartData: chartData = {
-				data: data,
-				label: label
-			};
-			setDataChart(initChartData);
-		}
-	},[data, label])
+	useEffect(
+		() => {
+			if (websitesFromStorage && websitesFromStorage.length != 0) {
+				websitesFromStorage.forEach((website: responseTime[]) => {
+					setData((prev) => [ ...prev, website[index].responseTime ]);
+					setLabel((prev) => [ ...prev, timeFormat(website[index].time) ]);
+				});
+			}
+		},
+		[ websitesFromStorage ]
+	);
+
+	useEffect(
+		() => {
+			if (data && data.length !== 0 && label && label.length !== 0) {
+				const initChartData: chartData = {
+					data: data,
+					label: label
+				};
+				setDataChart(initChartData);
+			}
+		},
+		[ data, label ]
+	);
 
 	return (
 		<section className="chart-contianer">

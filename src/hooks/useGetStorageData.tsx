@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 export const useGetStorageData = () => {
 	const [ allWebsiteData, setAllWebsiteDate ] = useState<responseTime[][]>([]);
+	const [ websitesFromStorage, setWebsitesFromStorage ] = useState<responseTime[][]>([]);
 	const [ resTimeData, setResTimeData ] = useState<responseTime[]>(initResponseTime);
 
     const updateData = (responseData: responseTime[]) => {
@@ -13,20 +14,20 @@ export const useGetStorageData = () => {
 	const getDataFromStorage = () => {
 		const storageJson = localStorage.getItem('storage');
 		if (storageJson) {
-			const websitesFromStorage: responseTime[][] = JSON.parse(storageJson);
-			console.log('1', websitesFromStorage)
-			websitesFromStorage.forEach((websiteData: responseTime[]) => {
-				console.log('2', websiteData)
-				updateData(websiteData);
-				// setTimeout(() => {
-				// }, 100);
-			});
+			const storage = JSON.parse(storageJson)
+			setWebsitesFromStorage(storage);
+			console.log('1', allWebsiteData)
+			console.log('2', storage)
+			storage.forEach((responseData: responseTime[])=> {
+				setAllWebsiteDate((prev) => [ ...prev, responseData ]);
+			})
 		}
 	};
 
 	useEffect(() => {
+		setWebsitesFromStorage([])
 		getDataFromStorage();
 	}, []);
 
-	return { allWebsiteData, resTimeData, updateData };
+	return { allWebsiteData, websitesFromStorage, resTimeData, updateData };
 };

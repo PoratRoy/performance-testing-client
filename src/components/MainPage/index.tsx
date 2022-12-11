@@ -7,22 +7,21 @@ import useInterval from 'hooks/useInterval';
 import { responseTime } from 'models';
 import { useUpdateStorage } from 'hooks/useUpdateStorage';
 import { useGetStorageData } from 'hooks/useGetStorageData';
-
+//
 const MainPage: React.FC = () => {
-
-	const {allWebsiteData, resTimeData, updateData} = useGetStorageData()
+	const {allWebsiteData, websitesFromStorage, resTimeData, updateData} = useGetStorageData()
 	const { setStorageDelay } = useUpdateStorage(allWebsiteData);
-	
+
 	const [ delay, setDelay ] = useState<number | null>(null);
 
 	useInterval(async () => {
 		const responseData: responseTime[] = await requestGetResponseTime();
-		updateData(responseData)
+		updateData(responseData);
 	}, delay);
 
 	const handleStartTest = async () => {
-		setDelay(5000);
-		setStorageDelay(6000);
+		setDelay(10000);
+		setStorageDelay(11000);
 	};
 	const handleStopTest = () => {
 		setDelay(null);
@@ -41,13 +40,34 @@ const MainPage: React.FC = () => {
 				</button>
 			</section>
 			<section className="main-charts">
-				{resTimeData.map((data: responseTime, i: number) => <Chart key={i} resTimeData={data} />)}
+				{resTimeData.map((data: responseTime, i: number) => (
+					<Chart key={i} resTimeData={data} websitesFromStorage={websitesFromStorage} index={i} />
+				))}
 			</section>
 		</section>
 	);
 };
 
 export default MainPage;
+
+// const getDataFromStorage = () => {
+// 	const dataPerWebsite: any = []
+// 	const storageJson = localStorage.getItem('storage');
+// 	if (storageJson) {
+// 		const r = JSON.parse(storageJson)
+// 		console.log('6', r)
+// 		for (let i = 0; i < 5; i++) {
+// 			let arr: any = []
+// 			r.forEach((e: any) => {
+// 				arr.push(e[i])
+// 			});
+// 			dataPerWebsite.push(arr)
+// 		}
+// 		console.log('7', dataPerWebsite)
+
+// 		setWebsitesFromStorage(dataPerWebsite);
+// 	}
+// };
 
 // const getDataFromStorage = () => {
 // 	let responseData: responseTime[] = [];
