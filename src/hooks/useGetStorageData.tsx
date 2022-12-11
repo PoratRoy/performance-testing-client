@@ -1,5 +1,6 @@
 import { initResponseTime, responseTime } from 'models';
 import React, { useEffect, useState } from 'react';
+import { LOCAL_STORAGE_KEY } from 'utils/constants';
 
 export const useGetStorageData = () => {
 	const [ allWebsiteData, setAllWebsiteDate ] = useState<responseTime[][]>([]);
@@ -12,7 +13,7 @@ export const useGetStorageData = () => {
 	}
 
 	const getDataFromStorage = () => {
-		const storageJson = localStorage.getItem('storage');
+		const storageJson = localStorage.getItem(LOCAL_STORAGE_KEY);
 		if (storageJson) {
 			const storage: responseTime[][] = JSON.parse(storageJson)
 			setWebsitesFromStorage(storage);
