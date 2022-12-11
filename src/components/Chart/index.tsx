@@ -16,7 +16,7 @@ interface ChartProps {
 const Chart: React.FC<ChartProps> = (props) => {
 	const { resTimeData, websitesFromStorage, index = 0 } = props;
 
-	const [ dataChart, setDataChart ] = useState<chartData>(initDataChart);
+	const [ chartData, setChartData ] = useState<chartData>(initDataChart);
 
 	const [ data, setData ] = useState<number[]>([]);
 	const [ label, setLabel ] = useState<string[]>([]);
@@ -73,7 +73,7 @@ const Chart: React.FC<ChartProps> = (props) => {
 					data: data,
 					label: label
 				};
-				setDataChart(initChartData);
+				setChartData(initChartData);
 			}
 		},
 		[ data, label ]
@@ -83,7 +83,7 @@ const Chart: React.FC<ChartProps> = (props) => {
 		<section className="chart-contianer">
 			<h2 className="chart-title">{title}</h2>
 			<section className="chart-chart">
-				<Line data={initChartData(dataChart)} options={initChartOptions()} />
+				<Line data={initChartData(chartData)} options={initChartOptions(chartData.data)} />
 			</section>
 		</section>
 	);

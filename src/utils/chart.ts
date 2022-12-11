@@ -37,14 +37,28 @@ export const initChartData = (chartData: chartData) => {
 	};
 };
 
-export const initChartOptions = () => {
+export const initChartOptions = (data: number[]) => {
+	let max: number = 300;
+
+	if(data.length != 0){
+		const resMaxTx = Math.max(
+			...data.map((row) => {
+				return row;
+			})
+		);
+		if (resMaxTx !== 0) {
+			max = Math.ceil(resMaxTx / 50) * 50
+		}
+	}
+	
+
 	return {
 		scales: {
 			yAxes: [
 				{
 					ticks: {
 						min: 0,
-						max: 500,
+						max: max,
 						beginAtZero: true,
 						fontColor: '#c7c7c7'
 					},
@@ -52,7 +66,7 @@ export const initChartOptions = () => {
 						display: true,
 						labelString: 'Response Time',
 						fontColor: '#c7c7c7'
-					},
+					}
 				}
 			],
 			xAxes: [
