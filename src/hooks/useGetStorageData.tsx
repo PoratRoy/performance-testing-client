@@ -14,18 +14,13 @@ export const useGetStorageData = () => {
 	const getDataFromStorage = () => {
 		const storageJson = localStorage.getItem('storage');
 		if (storageJson) {
-			const storage = JSON.parse(storageJson)
+			const storage: responseTime[][] = JSON.parse(storageJson)
 			setWebsitesFromStorage(storage);
-			console.log('1', allWebsiteData)
-			console.log('2', storage)
-			storage.forEach((responseData: responseTime[])=> {
-				setAllWebsiteDate((prev) => [ ...prev, responseData ]);
-			})
+			setAllWebsiteDate(storage);
 		}
 	};
 
 	useEffect(() => {
-		setWebsitesFromStorage([])
 		getDataFromStorage();
 	}, []);
 
