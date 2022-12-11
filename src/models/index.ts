@@ -4,19 +4,6 @@ export interface responseTime {
 	responseTime: number;
 }
 
-export interface websiteData {
-	time: number;
-	responseTime: number;
-}
-
-export interface AllWebsitesData {
-	google : websiteData[],
-	facebook : websiteData[],
-	twitter: websiteData[],
-	cnet: websiteData[],
-	amazon: websiteData[]
-};
-
 export interface chartData {
 	data: number[];
 	label: string[];
@@ -29,6 +16,8 @@ export const Websites = {
 	cnet: 'Cnet',
 	amazon: 'Amazon'
 };
+
+/* Init */
 
 export const initResponseTime: responseTime[] = [
 	{ website: 'google', time: 0, responseTime: 0 },

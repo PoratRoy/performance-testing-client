@@ -17,11 +17,3 @@ export const useUpdateStorage = (allWebsiteData: responseTime[][]) => {
 	return { setStorageDelay };
 };
 
-// resTimeData.forEach((data: responseTime) => {
-//     const { website, time, responseTime } = data;
-//     localStorage.removeItem(website);
-//     const d: websiteData = {
-//         time,
-//         responseTime
-//     };
-// });
