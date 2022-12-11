@@ -7,6 +7,7 @@ import useInterval from 'hooks/useInterval';
 import { responseTime } from 'models';
 import { useUpdateStorage } from 'hooks/useUpdateStorage';
 import { useGetStorageData } from 'hooks/useGetStorageData';
+import { DELAY } from 'utils/constants';
 const MainPage: React.FC = () => {
 	const {allWebsiteData, websitesFromStorage, resTimeData, updateData} = useGetStorageData()
 	const { setStorageDelay } = useUpdateStorage(allWebsiteData);
@@ -19,8 +20,8 @@ const MainPage: React.FC = () => {
 	}, delay);
 
 	const handleStartTest = async () => {
-		setDelay(10000);
-		setStorageDelay(11000);
+		setDelay(DELAY);
+		setStorageDelay((DELAY+100));
 	};
 	const handleStopTest = () => {
 		setDelay(null);

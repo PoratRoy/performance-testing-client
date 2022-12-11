@@ -44,7 +44,7 @@ export const initChartOptions = () => {
 				{
 					ticks: {
 						min: 0,
-						max: 400,
+						max: 500,
 						beginAtZero: true,
 						fontColor: '#c7c7c7'
 					},

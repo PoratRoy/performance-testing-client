@@ -21,9 +21,10 @@ export const useGetStorageData = () => {
 		}
 	};
 
-	/*Running the get data function on every first entry to the website */
+	/* Running the get data function on every first entry to the website
+	Check if there is no already data in the charts */
 	useEffect(() => {
-		getDataFromStorage();
+		websitesFromStorage.length === 0 && getDataFromStorage();
 	}, []);
 
 	return { allWebsiteData, websitesFromStorage, resTimeData, updateData };

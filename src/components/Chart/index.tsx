@@ -5,6 +5,7 @@ import './Chart.css';
 import { useEffect } from 'react';
 import { initChartData, initChartOptions } from 'utils/chart';
 import { Line } from 'react-chartjs-2';
+import { CHART_COLUMNS } from 'utils/constants';
 
 interface ChartProps {
 	resTimeData?: responseTime;
@@ -38,7 +39,7 @@ const Chart: React.FC<ChartProps> = (props) => {
 					setData([ responseTime ]);
 					setLabel([ timeFormat(time) ]);
 				} else {
-					if (data.length >= 10) {
+					if (data.length >= CHART_COLUMNS) {
 						setData((prev) => prev.filter((a, i) => i !== 0));
 						setLabel((prev) => prev.filter((a, i) => i !== 0));
 					}
