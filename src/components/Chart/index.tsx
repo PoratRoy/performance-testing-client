@@ -20,6 +20,7 @@ const Chart: React.FC<ChartProps> = (props) => {
 	const [ data, setData ] = useState<number[]>([]);
 	const [ label, setLabel ] = useState<string[]>([]);
 
+	/* Initial the chart title */
 	const title = useMemo(() => {
 		if (resTimeData) {
 			const { website } = resTimeData;
@@ -27,6 +28,8 @@ const Chart: React.FC<ChartProps> = (props) => {
 		}
 	}, []);
 
+	/* Update data & label state with the new response data
+	Leaving only 10 columns in the chart by implementing a queue  */
 	useEffect(
 		() => {
 			if (resTimeData && resTimeData.time !== 0) {
@@ -47,7 +50,8 @@ const Chart: React.FC<ChartProps> = (props) => {
 		},
 		[ resTimeData ]
 	);
-
+	
+	/* Update data & label state with the storage data that load on the first enter to the website */
 	useEffect(
 		() => {
 			if (websitesFromStorage && websitesFromStorage.length != 0) {
@@ -60,6 +64,7 @@ const Chart: React.FC<ChartProps> = (props) => {
 		[ websitesFromStorage ]
 	);
 
+	/* Update the chart data with the new data & label */
 	useEffect(
 		() => {
 			if (data && data.length !== 0 && label && label.length !== 0) {

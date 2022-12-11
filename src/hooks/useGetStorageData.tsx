@@ -21,6 +21,7 @@ export const useGetStorageData = () => {
 		}
 	};
 
+	/*Running the get data function on every first entry to the website */
 	useEffect(() => {
 		getDataFromStorage();
 	}, []);

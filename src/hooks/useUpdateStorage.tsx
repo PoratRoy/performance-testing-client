@@ -10,6 +10,7 @@ export const useUpdateStorage = (allWebsiteData: responseTime[][]) => {
 		updateStorage(allWebsiteData);
 	}, storageDelay);
 
+	/*Clearing the LocalStorage and updating it with the new data */
 	const updateStorage = (allWebsiteData: responseTime[][]) => {
 		localStorage.clear();
 		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allWebsiteData));
