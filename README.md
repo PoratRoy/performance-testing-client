@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# Preformance Testing App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src="public/previousImage.png" width="500">
+
+## Technical Stacks
+- Bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
+- Built with [Typescript](https://www.typescriptlang.org/)
+- [react-chatjs-2](https://react-chartjs-2.js.org/) 
+- Using only css
 
 ## Available Scripts
 
