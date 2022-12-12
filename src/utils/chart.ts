@@ -1,13 +1,4 @@
-import { chartData, responseTime } from 'models';
-import { ChartData } from 'react-chartjs-2';
-
-export function tooltipText(
-	tooltipItem, //: TooltipItem,
-	chartData //: ChartData<EnhancedChartData>,
-): string {
-	const { datasetIndex, index } = tooltipItem;
-	return chartData.datasets[datasetIndex].data[index].tooltip;
-}
+import { chartData } from 'models';
 
 export function tooltipTitle(tooltipItems, chartData): string {
 	if (tooltipItems.length === 1) {
@@ -17,7 +8,6 @@ export function tooltipTitle(tooltipItems, chartData): string {
 }
 
 export const tooltipCallback = {
-	label: tooltipText,
 	title: tooltipTitle
 };
 
