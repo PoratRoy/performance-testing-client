@@ -1,5 +1,5 @@
-import { chartData, initDataChart, responseTime, Websites } from 'models';
-import React, { useMemo, useState } from 'react';
+import { chartData, initDataChart, websiteData, Websites, websitesResponse } from 'models';
+import React, { useState } from 'react';
 import { timeFormat } from 'utils/time';
 import './Chart.css';
 import { useEffect } from 'react';
@@ -8,26 +8,22 @@ import { Line } from 'react-chartjs-2';
 import { CHART_COLUMNS } from 'utils/constants';
 
 interface ChartProps {
-	resTimeData?: responseTime;
-	websitesFromStorage?: responseTime[][];
-	index?: number;
+	resTimeData?: websiteData;
+	websitesFromStorage?: websitesResponse[];
 }
 
 const Chart: React.FC<ChartProps> = (props) => {
-	const { resTimeData, websitesFromStorage, index = 0 } = props;
+	const { resTimeData, websitesFromStorage } = props;
 
 	const [ chartData, setChartData ] = useState<chartData>(initDataChart);
 
 	const [ data, setData ] = useState<number[]>([]);
 	const [ label, setLabel ] = useState<string[]>([]);
 
+	
+	const websiteName = resTimeData ? resTimeData.website : Object.keys(Websites)[0]
 	/* Initial the chart title */
-	const title = useMemo(() => {
-		if (resTimeData) {
-			const { website } = resTimeData;
-			return Websites[website];
-		}
-	}, []);
+	const title = Websites[websiteName];
 
 	/* Update data & label state with the new response data
 	Leaving only 10 columns in the chart by implementing a queue  */
@@ -40,8 +36,8 @@ const Chart: React.FC<ChartProps> = (props) => {
 					setLabel([ timeFormat(time) ]);
 				} else {
 					if (data.length >= CHART_COLUMNS) {
-						setData((prev) => prev.filter((a, i) => i !== 0));
-						setLabel((prev) => prev.filter((a, i) => i !== 0));
+						setData((prev) => prev.filter((d, i) => i !== 0));
+						setLabel((prev) => prev.filter((d, i) => i !== 0));
 					}
 
 					setData((prev) => [ ...prev, responseTime ]);
@@ -56,9 +52,9 @@ const Chart: React.FC<ChartProps> = (props) => {
 	useEffect(
 		() => {
 			if (websitesFromStorage && websitesFromStorage.length != 0) {
-				websitesFromStorage.forEach((website: responseTime[]) => {
-					setData((prev) => [ ...prev, website[index].responseTime ]);
-					setLabel((prev) => [ ...prev, timeFormat(website[index].time) ]);
+				websitesFromStorage.forEach((website: websitesResponse) => {
+					setData((prev) => [ ...prev, website[websiteName].responseTime ]);
+					setLabel((prev) => [ ...prev, timeFormat(website[websiteName].time) ]);
 				});
 			}
 		},

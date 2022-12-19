@@ -3,18 +3,21 @@ import Chart from 'components/Chart';
 import './MainPage.css';
 import { requestGetResponseTime } from 'utils/api';
 import useInterval from 'hooks/useInterval';
-import { responseTime } from 'models';
+import { websiteData, websitesResponse } from 'models';
 import { useUpdateStorage } from 'hooks/useUpdateStorage';
 import { useGetStorageData } from 'hooks/useGetStorageData';
 import { DELAY } from 'utils/constants';
+
+
 const MainPage: React.FC = () => {
-	const {allWebsiteData, websitesFromStorage, resTimeData, updateData} = useGetStorageData()
-	const { setStorageDelay } = useUpdateStorage(allWebsiteData);
+	const {chartWebsitesData, websitesFromStorage, websitesData, updateData} = useGetStorageData()
+	const { setStorageDelay } = useUpdateStorage(chartWebsitesData);
 
 	const [ delay, setDelay ] = useState<number | null>(null);
 
+	/* Main interval for getting data from the back-end and update in the local storage */
 	useInterval(async () => {
-		const responseData: responseTime[] = await requestGetResponseTime();
+		const responseData: websitesResponse = await requestGetResponseTime();
 		updateData(responseData);
 	}, delay);
 
@@ -39,8 +42,8 @@ const MainPage: React.FC = () => {
 				</button>
 			</section>
 			<section className="main-charts">
-				{resTimeData.map((data: responseTime, i: number) => (
-					<Chart key={i} resTimeData={data} websitesFromStorage={websitesFromStorage} index={i} />
+				{Object.values(websitesData).map((data: websiteData, i: number) => (
+					<Chart key={i} resTimeData={data} websitesFromStorage={websitesFromStorage} />
 				))}
 			</section>
 		</section>

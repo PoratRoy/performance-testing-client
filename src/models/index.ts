@@ -1,7 +1,15 @@
-export interface responseTime {
+export interface websiteData {
 	website: string;
 	time: number;
 	responseTime: number;
+}
+
+export interface websitesResponse {
+	google: websiteData,
+	facebook: websiteData,
+	twitter: websiteData,
+	cnet: websiteData,
+	amazon: websiteData,
 }
 
 export interface chartData {
@@ -19,20 +27,12 @@ export const Websites = {
 
 /* Init */
 
-export const initResponseTime: responseTime[] = [
-	{ website: 'google', time: 0, responseTime: 0 },
-	{ website: 'facebook', time: 0, responseTime: 0 },
-	{ website: 'twitter', time: 0, responseTime: 0 },
-	{ website: 'cnet', time: 0, responseTime: 0 },
-	{ website: 'amazon', time: 0, responseTime: 0 }
-];
-
-export const initAllWebsitesData = {
-	google : [],
-	facebook : [],
-	twitter: [],
-	cnet: [],
-	amazon: []
+export const initWebsitesData: websitesResponse = {
+	google: { website: 'google', time: 0, responseTime: 0 },
+	facebook: { website: 'facebook', time: 0, responseTime: 0 },
+	twitter: { website: 'twitter', time: 0, responseTime: 0 },
+	cnet: { website: 'cnet', time: 0, responseTime: 0 },
+	amazon: { website: 'amazon', time: 0, responseTime: 0 }
 };
 
 export const initDataChart: chartData = { label: [], data: [] };

@@ -1,22 +1,23 @@
-import { responseTime } from 'models';
+import { websitesResponse } from 'models';
 import useInterval from 'hooks/useInterval';
 import React, { useState } from 'react';
 import { CHART_COLUMNS, LOCAL_STORAGE_KEY } from 'utils/constants';
 
-export const useUpdateStorage = (allWebsiteData: responseTime[][]) => {
+export const useUpdateStorage = (websitesData: websitesResponse[]) => {
 	const [ storageDelay, setStorageDelay ] = useState<number | null>(null);
 
 	useInterval(async () => {
-		updateStorage(allWebsiteData);
+		updateStorage(websitesData);
 	}, storageDelay);
 
-	/*Clearing the LocalStorage and updating it with the new data */
-	const updateStorage = (allWebsiteData: responseTime[][]) => {
+	/* Clearing the LocalStorage and updating it with the new data, 
+	implementing a queue to store no more than the chart columns */
+	const updateStorage = (websitesData: websitesResponse[]) => {
 		localStorage.clear();
 		const dataToStorage: string =
-			allWebsiteData.length > CHART_COLUMNS
-				? JSON.stringify(allWebsiteData.slice(-CHART_COLUMNS))
-				: JSON.stringify(allWebsiteData);
+			websitesData.length > CHART_COLUMNS
+				? JSON.stringify(websitesData.slice(-CHART_COLUMNS))
+				: JSON.stringify(websitesData);
 		localStorage.setItem(LOCAL_STORAGE_KEY, dataToStorage);
 	};
 
